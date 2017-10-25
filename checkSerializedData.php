@@ -92,8 +92,9 @@ class CheckSerializedData
     {
         $offset = 0;
         $limit = 100;
-
         $lastId = 0;
+
+        $start = microtime(true);
 
         $where = $this->where;
         $where['pri'] = "{$this->idKey} > $lastId";
@@ -137,16 +138,24 @@ class CheckSerializedData
             $setColumnsNullArr[] = "`$column` = null";
         }
         $setColumnsNull = implode(',', $setColumnsNullArr);
-        $updatedIds = implode(',', $brokenIds);
-        $sql = "update {$this->table} set $setColumnsNull where `option_id` in ($updatedIds);";
+        $updateIds = implode(',', $brokenIds);
+        $sql = "update {$this->table} set $setColumnsNull where `option_id` in ($updateIds);";
 
         $columns = implode('', $this->columns);
 
-        echo "\n\nReviewed {$this->counter} items \n";
-        echo "Please execute the next SQL command to set NULL for columns {$columns}"
-            . " in all broken values in table {$this->table}: \n\n";
+        $end = microtime(true);
+        $time = $end - $start;
 
-        echo "$sql \n\n";
+        echo "\n\nReviewed {$this->counter} items in {$time} seconds \n";
+
+        if ($updateIds) {
+            echo "Please execute the next SQL command to set NULL for columns {$columns}"
+                . " in all broken values in table {$this->table}: \n\n";
+
+            echo "$sql \n\n";
+        } else {
+            echo "All values of columns {$columns} of table {$this->table} may be unserialized successfully \n";
+        }
     }
 }
 
@@ -155,7 +164,6 @@ $dbConfig = [
     'username' => 'm',
     'password' => ''
 ];
-
 
 $monkey = new CheckSerializedData($dbConfig);
 $monkey->walkTable();
