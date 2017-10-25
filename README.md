@@ -1,4 +1,4 @@
-# This tool checks values for specified table columns if it may be unserialized successfully
+# This tool checks values for specified table columns if its values may be unserialized successfully
 
 ### If you receiving the below error during upgrade from 2.1.x to 2.2.x using setup:upgrade
 ```sh
