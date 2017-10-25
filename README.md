@@ -2,7 +2,7 @@
 
 ### If you receiving the below error during upgrade from 2.1.x to 2.2.x using setup:upgrade
 ```sh
-Upgrading data.. Error converting field `value` in table `quote_item_option` where `option_id`=435925, 435929 using Magento\Framework\DB\DataConverter\SerializedToJson.
+Upgrading data.. Error converting field `value` in table `quote_item_option` where `option_id`=435925 using Magento\Framework\DB\DataConverter\SerializedToJson.
 Fix data or replace with a valid value.
 Failure reason: 'Unable to unserialize value, string is corrupted.'
 ```
