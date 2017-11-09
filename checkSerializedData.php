@@ -139,7 +139,7 @@ class CheckSerializedData
         }
         $setColumnsNull = implode(',', $setColumnsNullArr);
         $updateIds = implode(',', $brokenIds);
-        $sql = "update {$this->table} set $setColumnsNull where `option_id` in ($updateIds);";
+        $sql = "update {$this->table} set $setColumnsNull where `{$this->idKey}` in ($updateIds);";
 
         $columns = implode('', $this->columns);
 
